@@ -58,14 +58,14 @@ public class ControllerFuncionarios {
         int resto = funcionarios.size() % 2;
         //para um lista de tamanho impar basta pegar o valor do meio
         if (resto > 0) {
-            int index = funcionarios.size() / 2;
-            System.out.println("Mediana: " + funcionarios.get(index).getSalario());
+            int indice = funcionarios.size() / 2;
+            System.out.println("Mediana: " + funcionarios.get(indice).getSalario());
         }
-        //para uma lista de tamanho par deve usar a média dos dois valores do meio
+        //para uma lista de tamanho par deve-se usar a média dos dois valores centrais
         else if (resto == 0) {
-            int index = funcionarios.size() / 2;
-            double x = funcionarios.get(index - 1).getSalario();
-            double y = funcionarios.get(index - 1).getSalario();
+            int indice = funcionarios.size() / 2;
+            double x = funcionarios.get(indice - 1).getSalario();
+            double y = funcionarios.get(indice).getSalario();
             double mediana = ((x + y) / 2);
             System.out.println("Mediana: " + mediana);
         }
