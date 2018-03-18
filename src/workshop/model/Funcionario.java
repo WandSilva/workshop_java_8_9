@@ -32,17 +32,17 @@ public class Funcionario {
         return idade;
     }
 
-    public double getSalario() {
+    public Double getSalario() {
         return salario;
     }
 
     @Override
     public String toString() {
-        return String.format("Nome: %s, departamento %s, idade %d, salario %.2f",
+        return String.format("Nome: %s, departamento: %s, idade: %d, salario: %.2f",
                 getNome(), getDepartamento(), getIdade(), getSalario());
     }
 
-    public static Funcionario extrairDeString(String stringFuncionario){
+    public static Funcionario extrairDeString(String stringFuncionario) {
         Scanner leitor = new Scanner(stringFuncionario);
         leitor.useDelimiter(";");
 
