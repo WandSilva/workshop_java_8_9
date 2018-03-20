@@ -5,24 +5,21 @@ import workshop.model.Funcionario;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by wanderson on 13/03/18.
  */
-public class ControllerFuncionarios {
+public class ControllerFunc_J7 {
     private static String NOME_DO_ARQUIVO = "exemplo.data";
     private List<Funcionario> funcionarios;
 
-    public ControllerFuncionarios() throws IOException {
+    public ControllerFunc_J7() throws IOException {
         this.funcionarios = this.carregarFuncionariosDoArquivo();
     }
 
     private List<Funcionario> carregarFuncionariosDoArquivo() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(ControllerFuncionarios.NOME_DO_ARQUIVO));
+        BufferedReader br = new BufferedReader(new FileReader(ControllerFunc_J7.NOME_DO_ARQUIVO));
         Funcionario funcionario;
         List<Funcionario> funcionarios = new ArrayList<>();
 
@@ -36,25 +33,40 @@ public class ControllerFuncionarios {
         return funcionarios;
     }
 
-    public void filtroDeIdade(int idade) {
+    public List<Funcionario> filtroDeIdade(int idade) {
         //Mostra o nome dos funcionários que possuem mais de X anos
+
+        List<Funcionario> filtro = new ArrayList<>();
+
         for (Funcionario f : funcionarios) {
             if (f.getIdade() > idade)
-                System.out.println(f);
+                filtro.add(f);
         }
+        return filtro;
     }
 
+    public List<Funcionario> filtroDeDepartamento(String departamento) {
+        List<Funcionario> filtro = new ArrayList<>();
 
-    public void mediaSalarial() {
+        for (Funcionario f : funcionarios) {
+            if (f.getDepartamento().equals(departamento)) {
+                filtro.add(f);
+            }
+        }
+        return filtro;
+    }
+
+    public double mediaSalarial() {
         double media = 0;
         for (Funcionario f : funcionarios) {
             media += f.getSalario();
         }
         media = media / funcionarios.size();
-        System.out.println("Média salarial: " + media);
+        return media;
     }
 
-    public void medianaSalarial() {
+    public double medianaSalarial() {
+        double mediana = 0;
         int resto = funcionarios.size() % 2;
         //para um lista de tamanho impar basta pegar o valor do meio
         if (resto > 0) {
@@ -66,43 +78,48 @@ public class ControllerFuncionarios {
             int indice = funcionarios.size() / 2;
             double x = funcionarios.get(indice - 1).getSalario();
             double y = funcionarios.get(indice).getSalario();
-            double mediana = ((x + y) / 2);
+            mediana = ((x + y) / 2);
             System.out.println("Mediana: " + mediana);
         }
+        return mediana;
     }
 
 
-    public void maiorSalario() {
+    public Funcionario maiorSalario() {
         Funcionario funcionario = funcionarios.get(0);
         for (Funcionario f : funcionarios) {
             if (f.getSalario() > funcionario.getSalario())
                 funcionario = f;
         }
-        System.out.println("Maior salario:");
-        System.out.println(funcionario);
+        return funcionario;
     }
 
-    public void menorSalario() {
+    public Funcionario menorSalario() {
         Funcionario funcionario = funcionarios.get(0);
         for (Funcionario f : funcionarios) {
             if (f.getSalario() < funcionario.getSalario())
                 funcionario = f;
         }
-        System.out.println("Menor salario:");
-        System.out.println(funcionario);
+        return funcionario;
     }
 
     public void ordenarPorSalario() {
 
-        Collections.sort(funcionarios, new Comparator<Funcionario>() {
-            @Override
-            public int compare(Funcionario f1, Funcionario f2) {
-                return f1.getSalario().compareTo(f2.getSalario());
-            }
-        });
-
-        for (Funcionario f : funcionarios)
-            System.out.println(f);
     }
 
+    public Map<String, List<Funcionario>> listaParaMapa() {
+
+        List<Funcionario> funcsDoDepartamento;
+        Map<String, List<Funcionario>> mapaDerpamento = new HashMap<>();
+
+        for (Funcionario f : funcionarios) {
+
+            funcsDoDepartamento = filtroDeDepartamento(f.getDepartamento());
+
+            if (mapaDerpamento.containsKey(f.getDepartamento())) {
+                mapaDerpamento.put(f.getDepartamento(), funcsDoDepartamento);
+            }
+        }
+        return mapaDerpamento;
+    }
 }

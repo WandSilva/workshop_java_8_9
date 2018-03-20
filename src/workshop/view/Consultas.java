@@ -1,14 +1,13 @@
 package workshop.view;
 
-import workshop.controllers.ControllerFuncionarios;
+import workshop.controllers.ControllerFunc_J7;
 
 public class Consultas {
 
     public static void main(String[] args) throws Exception{
-        ControllerFuncionarios control = new ControllerFuncionarios();
+        ControllerFunc_J7 control_J7 = new ControllerFunc_J7();
 
-        //control.filtroDeIdade(10);
-        //control.ordenarPorSalario();
-        control.mediaSalarial();
+
+        control_J7.mediaSalarial();
     }
 }

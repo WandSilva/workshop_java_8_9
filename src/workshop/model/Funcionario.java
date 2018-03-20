@@ -53,4 +53,9 @@ public class Funcionario {
 
         return new Funcionario(nome, departamento, idade, salario);
     }
+
+    public void demitir() {
+        this.departamento = "desempregado";
+        this.salario = 0;
+    }
 }
