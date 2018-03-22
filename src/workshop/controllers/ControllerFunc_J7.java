@@ -1,5 +1,6 @@
 package workshop.controllers;
 
+import workshop.model.Departamento;
 import workshop.model.Funcionario;
 
 import java.io.BufferedReader;
@@ -16,6 +17,16 @@ public class ControllerFunc_J7 {
 
     public ControllerFunc_J7() throws IOException {
         this.funcionarios = this.carregarFuncionariosDoArquivo();
+    }
+
+    public void ordenarPorSalario() {
+    }
+
+    public void iniciarExpediente() {
+    }
+
+    public void encerrarExpediente() {
+
     }
 
     private List<Funcionario> carregarFuncionariosDoArquivo() throws IOException {
@@ -38,7 +49,7 @@ public class ControllerFunc_J7 {
 
         List<Funcionario> filtro = new ArrayList<>();
 
-        for (Funcionario f : funcionarios) {
+        for (Funcionario f : this.funcionarios) {
             if (f.getIdade() > idade)
                 filtro.add(f);
         }
@@ -48,7 +59,7 @@ public class ControllerFunc_J7 {
     public List<Funcionario> filtroDeDepartamento(String departamento) {
         List<Funcionario> filtro = new ArrayList<>();
 
-        for (Funcionario f : funcionarios) {
+        for (Funcionario f : this.funcionarios) {
             if (f.getDepartamento().equals(departamento)) {
                 filtro.add(f);
             }
@@ -58,36 +69,53 @@ public class ControllerFunc_J7 {
 
     public double mediaSalarial() {
         double media = 0;
-        for (Funcionario f : funcionarios) {
+        for (Funcionario f : this.funcionarios) {
             media += f.getSalario();
         }
-        media = media / funcionarios.size();
+        media = media / this.funcionarios.size();
         return media;
     }
 
-    public double medianaSalarial() {
-        double mediana = 0;
-        int resto = funcionarios.size() % 2;
-        //para um lista de tamanho impar basta pegar o valor do meio
-        if (resto > 0) {
-            int indice = funcionarios.size() / 2;
-            System.out.println("Mediana: " + funcionarios.get(indice).getSalario());
+    public double custoFolhaPagamento() {
+        double custo = 0;
+
+        for (Funcionario f : this.funcionarios) {
+            custo += f.getSalario();
         }
-        //para uma lista de tamanho par deve-se usar a média dos dois valores centrais
-        else if (resto == 0) {
-            int indice = funcionarios.size() / 2;
-            double x = funcionarios.get(indice - 1).getSalario();
-            double y = funcionarios.get(indice).getSalario();
-            mediana = ((x + y) / 2);
-            System.out.println("Mediana: " + mediana);
+
+        return custo;
+    }
+
+    public Map<String, Double> mediaSalarioDpt() {
+        Map<String, Double> mediaPorDpt = new HashMap();
+        Map<String, List<Funcionario>> mapaDpt = this.listaParaMapa();
+
+        for (Map.Entry<String, List<Funcionario>> map : mapaDpt.entrySet()) {
+            double contador = 0;
+            for (Funcionario f : map.getValue()) {
+                contador += f.getSalario();
+                double media = contador / map.getValue().size();
+                mediaPorDpt.put(map.getKey(), media);
+            }
         }
-        return mediana;
+        return mediaPorDpt;
+    }
+
+    public Double mediaSalarioDpt(String dpt) {
+
+        List<Funcionario> funcionarios = this.listaParaMapa().get(dpt);
+        double contador = 0;
+        for (Funcionario f : funcionarios) {
+            contador += f.getSalario();
+        }
+        double media = contador / funcionarios.size();
+        return media;
     }
 
 
     public Funcionario maiorSalario() {
-        Funcionario funcionario = funcionarios.get(0);
-        for (Funcionario f : funcionarios) {
+        Funcionario funcionario = this.funcionarios.get(0);
+        for (Funcionario f : this.funcionarios) {
             if (f.getSalario() > funcionario.getSalario())
                 funcionario = f;
         }
@@ -95,16 +123,23 @@ public class ControllerFunc_J7 {
     }
 
     public Funcionario menorSalario() {
-        Funcionario funcionario = funcionarios.get(0);
-        for (Funcionario f : funcionarios) {
+        Funcionario funcionario = this.funcionarios.get(0);
+        for (Funcionario f : this.funcionarios) {
             if (f.getSalario() < funcionario.getSalario())
                 funcionario = f;
         }
         return funcionario;
     }
 
-    public void ordenarPorSalario() {
+    public boolean alguemFoiDemitido() {
+        boolean demitido = false;
 
+        for (Funcionario f : this.funcionarios) {
+            if (!f.estaContratado()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Map<String, List<Funcionario>> listaParaMapa() {
@@ -112,7 +147,7 @@ public class ControllerFunc_J7 {
         List<Funcionario> funcsDoDepartamento;
         Map<String, List<Funcionario>> mapaDerpamento = new HashMap<>();
 
-        for (Funcionario f : funcionarios) {
+        for (Funcionario f : this.funcionarios) {
 
             funcsDoDepartamento = filtroDeDepartamento(f.getDepartamento());
 
