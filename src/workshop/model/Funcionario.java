@@ -38,6 +38,10 @@ public class Funcionario {
         return salario;
     }
 
+    public void aumentarSalario(double percentil){
+        this.salario *= (1+percentil);
+    }
+
     @Override
     public String toString() {
         return String.format("Nome: %s, departamento: %s, idade: %d, salario: %.2f",
@@ -78,5 +82,15 @@ public class Funcionario {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Funcionario){
+            Funcionario f = (Funcionario) obj;
+            return this.getNome().equals(f.getNome());
+        }
+
+        return false;
     }
 }

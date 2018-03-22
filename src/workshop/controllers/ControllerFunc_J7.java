@@ -5,17 +5,20 @@ import workshop.model.Funcionario;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
  * Created by wanderson on 13/03/18.
  */
 public class ControllerFunc_J7 {
-    private static String NOME_DO_ARQUIVO = "exemplo.data";
+    private static final String NOME_DO_ARQUIVO = "exemplo.data";
     private List<Funcionario> funcionarios;
 
     public ControllerFunc_J7() throws IOException {
         this.funcionarios = this.carregarFuncionariosDoArquivo();
+
     }
 
     private List<Funcionario> carregarFuncionariosDoArquivo() throws IOException {
@@ -33,6 +36,19 @@ public class ControllerFunc_J7 {
         return funcionarios;
     }
 
+    public void imprimirFuncionarios(){
+        for(Funcionario f: this.funcionarios){
+            System.out.println(f);
+        }
+    }
+
+    public void aumentoSalario(int limite, double percentil){
+        for(Funcionario f: this.funcionarios){
+            if(f.getSalario() < limite){
+                f.aumentarSalario(percentil);
+            }
+        }
+    }
     public List<Funcionario> filtroDeIdade(int idade) {
         //Mostra o nome dos funcionários que possuem mais de X anos
 
