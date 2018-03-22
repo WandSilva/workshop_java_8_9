@@ -14,23 +14,19 @@ import java.util.*;
  * Created by wanderson on 13/03/18.
  */
 public class ControllerFunc_J7 {
-    private static final String NOME_DO_ARQUIVO = "exemplo.data";
+    private static final String NOME_DO_ARQUIVO = "funcionarios.data";
     private List<Funcionario> funcionarios;
+    private List<Thread> tarefas;
 
     public ControllerFunc_J7() throws IOException {
         this.funcionarios = this.carregarFuncionariosDoArquivo();
-
+        this.tarefas = new ArrayList<>(this.funcionarios.size());
     }
 
-    public void ordenarPorSalario() {
+    public List<Funcionario> ordenarPorSalario() {
+        return null;
     }
 
-    public void iniciarExpediente() {
-    }
-
-    public void encerrarExpediente() {
-
-    }
 
     private List<Funcionario> carregarFuncionariosDoArquivo() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(ControllerFunc_J7.NOME_DO_ARQUIVO));
@@ -156,6 +152,24 @@ public class ControllerFunc_J7 {
             }
         }
         return false;
+    }
+
+    public void iniciarExpediente() {
+        for(Funcionario f: this.funcionarios){
+            Runnable tarefa = new Runnable() {
+                @Override
+                public void run() {
+                    f.trabalhar();
+                }
+            };
+            Thread t = new Thread(tarefa);
+            this.tarefas.add(t);
+            t.start();
+        }
+    }
+
+    public void encerrarExpediente() {
+
     }
 
     public Map<String, List<Funcionario>> listaParaMapa() {

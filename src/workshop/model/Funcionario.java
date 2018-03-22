@@ -75,8 +75,8 @@ public class Funcionario {
     public void trabalhar() {
         try {
             while (true) {
-                System.out.println("Estou trabalhando...");
-                TimeUnit.SECONDS.sleep(1);
+                System.out.println(this.getNome() + " está trabalhando...");
+                TimeUnit.MINUTES.sleep(1);
             }
 
         } catch (InterruptedException e) {
