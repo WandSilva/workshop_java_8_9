@@ -1,6 +1,7 @@
 package workshop.model;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by wanderson on 13/03/18.
@@ -11,6 +12,7 @@ public class Funcionario {
     private String departamento;
     private int idade;
     private double salario;
+    private boolean contratado;
 
 
     public Funcionario(String nome, String departamento, int idade, double salario) {
@@ -54,8 +56,27 @@ public class Funcionario {
         return new Funcionario(nome, departamento, idade, salario);
     }
 
+    public boolean estaContratado() {
+        return contratado;
+    }
+
     public void demitir() {
-        this.departamento = "desempregado";
-        this.salario = 0;
+        this.contratado = false;
+    }
+
+    public void contratar() {
+        this.contratado = true;
+    }
+
+    public void trabalhar() {
+        try {
+            while (true) {
+                System.out.println("Estou trabalhando...");
+                TimeUnit.SECONDS.sleep(1);
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
