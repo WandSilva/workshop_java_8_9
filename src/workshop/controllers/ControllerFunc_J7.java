@@ -116,7 +116,7 @@ public class ControllerFunc_J7 {
 
             funcsDoDepartamento = filtroDeDepartamento(f.getDepartamento());
 
-            if (mapaDerpamento.containsKey(f.getDepartamento())) {
+            if (!mapaDerpamento.containsKey(f.getDepartamento())) {
                 mapaDerpamento.put(f.getDepartamento(), funcsDoDepartamento);
             }
         }

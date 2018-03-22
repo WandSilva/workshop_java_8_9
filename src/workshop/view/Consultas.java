@@ -8,6 +8,5 @@ public class Consultas {
         ControllerFunc_J7 control_J7 = new ControllerFunc_J7();
 
 
-        control_J7.mediaSalarial();
     }
 }
