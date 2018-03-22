@@ -1,5 +1,6 @@
 package workshop.controllers;
 
+import workshop.model.Departamento;
 import workshop.model.Funcionario;
 
 import java.io.BufferedReader;
@@ -18,6 +19,16 @@ public class ControllerFunc_J7 {
 
     public ControllerFunc_J7() throws IOException {
         this.funcionarios = this.carregarFuncionariosDoArquivo();
+
+    }
+
+    public void ordenarPorSalario() {
+    }
+
+    public void iniciarExpediente() {
+    }
+
+    public void encerrarExpediente() {
 
     }
 
@@ -81,14 +92,40 @@ public class ControllerFunc_J7 {
         return media;
     }
 
-    public double custoFolhaPagamento(){
+    public double custoFolhaPagamento() {
         double custo = 0;
 
-        for(Funcionario f: this.funcionarios){
+        for (Funcionario f : this.funcionarios) {
             custo += f.getSalario();
         }
 
         return custo;
+    }
+
+    public Map<String, Double> mediaSalarioDpt() {
+        Map<String, Double> mediaPorDpt = new HashMap();
+        Map<String, List<Funcionario>> mapaDpt = this.listaParaMapa();
+
+        for (Map.Entry<String, List<Funcionario>> map : mapaDpt.entrySet()) {
+            double contador = 0;
+            for (Funcionario f : map.getValue()) {
+                contador += f.getSalario();
+                double media = contador / map.getValue().size();
+                mediaPorDpt.put(map.getKey(), media);
+            }
+        }
+        return mediaPorDpt;
+    }
+
+    public Double mediaSalarioDpt(String dpt) {
+
+        List<Funcionario> funcionarios = this.listaParaMapa().get(dpt);
+        double contador = 0;
+        for (Funcionario f : funcionarios) {
+            contador += f.getSalario();
+        }
+        double media = contador / funcionarios.size();
+        return media;
     }
 
 
@@ -110,22 +147,15 @@ public class ControllerFunc_J7 {
         return funcionario;
     }
 
-    public void ordenarPorSalario() {
-
-    }
-
-    public boolean alguemFoiDemitido(){
+    public boolean alguemFoiDemitido() {
         boolean demitido = false;
 
-        for(Funcionario f : this.funcionarios){
-            if(!f.estaContratado()){
+        for (Funcionario f : this.funcionarios) {
+            if (!f.estaContratado()) {
                 return true;
             }
         }
         return false;
-    }
-
-    public void iniciarExpediente(){
     }
 
     public Map<String, List<Funcionario>> listaParaMapa() {
