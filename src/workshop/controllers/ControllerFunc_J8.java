@@ -3,18 +3,25 @@ package workshop.controllers;
 import workshop.model.Funcionario;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.IntSupplier;
+import java.util.stream.Collectors;
 
 
 public class ControllerFunc_J8 {
 
     private static final String NOME_DO_ARQUIVO = "funcionarios.data";
     private List<Funcionario> funcionarios;
+    private List<Thread> tarefas;
 
     public ControllerFunc_J8() throws IOException {
         this.funcionarios = this.carregarFuncionariosDoArquivo();
-
+        this.tarefas = new ArrayList<>();
     }
 
     public List<Funcionario> ordenarPorSalario() {
@@ -31,6 +38,11 @@ public class ControllerFunc_J8 {
 
     public void aumentoSalario(int limite, double percentil){
     }
+
+    public void aumentoSalario(double percentil){
+
+    }
+
     public List<Funcionario> filtroDeIdade(int idade) {
         return null;
     }
@@ -44,17 +56,8 @@ public class ControllerFunc_J8 {
     }
 
     public double custoFolhaPagamento() {
-        return 0;
+     return 0;
     }
-
-    public Map<String, Double> mediaSalarioDpt() {
-        return null;
-    }
-
-    public Double mediaSalarioDpt(String dpt) {
-        return null;
-    }
-
 
     public Funcionario maiorSalario() {
         return null;
@@ -72,10 +75,14 @@ public class ControllerFunc_J8 {
     }
 
     public void encerrarExpediente() {
-
     }
 
     public Map<String, List<Funcionario>> listaParaMapa() {
+        return null;
+
+    }
+
+    public Map<String, Double> mediaSalarioDpt() {
         return null;
     }
 

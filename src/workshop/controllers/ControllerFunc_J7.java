@@ -56,6 +56,13 @@ public class ControllerFunc_J7 {
             }
         }
     }
+
+    public void aumentoSalario(double percentil){
+        for(Funcionario f: this.funcionarios){
+                f.aumentarSalario(percentil);
+        }
+    }
+
     public List<Funcionario> filtroDeIdade(int idade) {
         //Mostra o nome dos funcionários que possuem mais de X anos
 
