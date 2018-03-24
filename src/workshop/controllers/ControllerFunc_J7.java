@@ -24,7 +24,14 @@ public class ControllerFunc_J7 {
     }
 
     public List<Funcionario> ordenarPorSalario() {
-        return null;
+        Collections.sort(this.funcionarios, new Comparator<Funcionario>() {
+            @Override
+            public int compare(Funcionario f1, Funcionario f2) {
+                return Double.compare(f1.getSalario(), f2.getSalario());
+            }
+        });
+
+        return this.funcionarios;
     }
 
 
