@@ -49,15 +49,20 @@ public class ControllerFunc_J8 {
     }
 
     public void aumentoSalario(double percentil){
-
+        this.funcionarios.forEach(f-> f.aumentarSalario(percentil));
     }
 
     public List<Funcionario> filtroDeIdade(int idade) {
-        return null;
+       return  this.funcionarios.stream()
+                .filter(f-> f.getIdade() < idade)
+                .collect(Collectors.toList());
     }
 
     public List<Funcionario> filtroDeDepartamento(String departamento) {
-        return null;
+        return this.funcionarios.stream()
+                .collect(Collectors.filtering(
+                        f-> f.getDepartamento().equals(departamento),
+                        Collectors.toList()));
     }
 
     public double mediaSalarial() {
@@ -68,6 +73,7 @@ public class ControllerFunc_J8 {
     }
 
     public double custoDosTop3(){
+        //Alternativa 1
         this.listaParaMapa().entrySet().stream()
                 .collect(Collectors.toMap(
                         k-> k.getKey(),
@@ -82,6 +88,7 @@ public class ControllerFunc_J8 {
                 .limit(3)
                 .sum();
 
+        //Alternativa 2
         return this.listaParaMapa().entrySet().stream()
                 .collect(Collectors.toList())
                 .stream()
